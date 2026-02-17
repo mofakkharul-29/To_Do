@@ -72,8 +72,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             child: Icon(
               Icons.task_rounded,
               size: 120,
-              color: Colors.amber,
-              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
               shadows: [
                 Shadow(
                   color: Colors.black,
