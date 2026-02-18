@@ -19,28 +19,31 @@ class RouterConfiguration {
     return GoRouter(
       redirect: (context, state) {
         final String path = state.uri.path;
+
         final bool isSplashDone =
             routerNotifier.isSplashDone;
         final bool isFirstLaunch =
             routerNotifier.isFirstLaunch;
         final user = routerNotifier.currentUser;
+        final bool isLoading = routerNotifier.isAppLoading;
 
-        if (!isSplashDone) return '/splash';
+        if (isLoading || !isSplashDone) {
+          return path == '/splash' ? null : '/splash';
+        }
 
-        if (isFirstLaunch && path != '/onboarding') {
-          return '/onboarding';
+        if (isFirstLaunch) {
+          return path == '/onboarding'
+              ? null
+              : '/onboarding';
         }
 
         final authPaths = ['/login', '/register'];
         if (user == null) {
-          if (!authPaths.contains(path)) {
-            return '/login';
-          }
+          return authPaths.contains(path) ? null : '/login';
         }
-        if (user != null &&
-            (authPaths.contains(path) ||
-                path == '/onboarding' ||
-                path == '/splash')) {
+        if (authPaths.contains(path) ||
+            path == '/onboarding' ||
+            path == '/splash') {
           return '/home';
         }
 
