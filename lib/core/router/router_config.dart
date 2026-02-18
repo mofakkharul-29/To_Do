@@ -27,20 +27,27 @@ class RouterConfiguration {
         final user = routerNotifier.currentUser;
         final bool isLoading = routerNotifier.isAppLoading;
 
-        if (isLoading || !isSplashDone) {
-          return path == '/splash' ? null : '/splash';
+        if (isLoading) {
+          if (path != '/splash') return '/splash';
+          return null;
+        }
+
+        if (!isSplashDone) {
+          if (path != '/splash') return '/splash';
+          return null;
         }
 
         if (isFirstLaunch) {
-          return path == '/onboarding'
-              ? null
-              : '/onboarding';
+          if (path != '/onboarding') return '/onboarding';
+          return null;
         }
 
         final authPaths = ['/login', '/register'];
         if (user == null) {
-          return authPaths.contains(path) ? null : '/login';
+          if (!authPaths.contains(path)) return '/login';
+          return null;
         }
+
         if (authPaths.contains(path) ||
             path == '/onboarding' ||
             path == '/splash') {
