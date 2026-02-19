@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/core/constant/pages.dart';
+import 'package:to_do/core/utils/custom_elevated_button.dart';
+import 'package:to_do/core/utils/custom_page_indicator.dart';
+import 'package:to_do/core/utils/custom_text_button.dart';
 import 'package:to_do/features/onboarding/widgets/custom_page_builder.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -10,9 +13,9 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(
         255,
-        148,
-        121,
-        224,
+        53,
+        45,
+        77,
       ),
       body: SafeArea(
         child: Column(
@@ -21,7 +24,7 @@ class OnboardingScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10.0,
-                  vertical: 5,
+                  vertical: 20,
                 ),
                 child: Stack(
                   children: [
@@ -31,21 +34,43 @@ class OnboardingScreen extends StatelessWidget {
                         final currentPage = pages[index];
                         return CustomPageBuilder(
                           image: currentPage['image'],
+                          title: currentPage['title'],
                         );
                       },
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 10,
+                      child: CustomTextButton(
+                        onPressed: () {},
+                        text: 'Skip',
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 15),
-            // page indicatior
-            // List.generate(length, generator)
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                pages.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  child: const CustomPageIndicator(
+                    height: 7,
+                    width: 15,
+                    radius: 5,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 17),
             // elevated button
-            ElevatedButton(
+            CustomElevatedButton(
               onPressed: () {},
-              child: Text('Next'),
+              text: 'Next',
             ),
           ],
         ),
