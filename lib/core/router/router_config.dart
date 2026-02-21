@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:to_do/core/router/routing_listenable.dart';
 import 'package:to_do/core/router/routing_path.dart';
+import 'package:to_do/features/auth/presentation/login_screen.dart';
+import 'package:to_do/features/auth/presentation/register_screen.dart';
 import 'package:to_do/features/home/presentation/home_screen.dart';
 import 'package:to_do/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:to_do/features/splash/presentation/splash_screen.dart';
@@ -71,6 +73,17 @@ class RouterConfiguration {
           name: onboardingRoute,
           builder: (context, state) =>
               const OnboardingScreen(),
+        ),
+        GoRoute(
+          path: '/login',
+          name: loginRoute,
+          builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: '/register',
+          name: registerRoute,
+          builder: (context, state) =>
+              const RegisterScreen(),
         ),
         GoRoute(
           path: '/home',

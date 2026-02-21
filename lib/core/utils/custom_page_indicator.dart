@@ -4,11 +4,13 @@ class CustomPageIndicator extends StatelessWidget {
   final double height;
   final double width;
   final double radius;
+  final Color color;
   const CustomPageIndicator({
     super.key,
     required this.height,
     required this.width,
     required this.radius,
+    required this.color,
   });
 
   @override
@@ -18,7 +20,7 @@ class CustomPageIndicator extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        color: Colors.grey,
+        color: color,
       ),
     );
   }

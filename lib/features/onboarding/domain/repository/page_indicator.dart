@@ -21,6 +21,14 @@ class PageIndicator extends Notifier<int> {
     );
   }
 
+  void goToNextPage(int value) {
+    _controller.animateToPage(
+      value,
+      duration: Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
   PageController get pageController => _controller;
 }
 
