@@ -121,29 +121,72 @@ class FirebaseAuthRepo implements AuthModel {
   }
 
   @override
-  Future<User?> currentUser() async {
-    throw UnimplementedError();
+  Future<AppUser?> getCurrentUser() async {
+    try {
+      final User? firebaseUser = _auth.currentUser;
+      if (firebaseUser == null) {
+        return null;
+      }
+
+      AppUser user = AppUser(
+        uid: firebaseUser.uid,
+        email: firebaseUser.email ?? '',
+        name: firebaseUser.displayName,
+        photoUrl: firebaseUser.photoURL,
+        createdAt:
+            firebaseUser.metadata.creationTime ??
+            DateTime.now(),
+      );
+      return user;
+    } catch (e) {
+      throw Exception('problem getting user: $e');
+    }
   }
 
   @override
   Future<void> logOut() async {
-    throw UnimplementedError();
+    try {
+      await Future.wait([
+        _googleSignIn.signOut(),
+        _auth.signOut(),
+      ]);
+    } catch (e) {
+      throw Exception('Failed to logout: $e');
+    }
   }
 
   @override
   Future<void> deleteAccount() async {
-    throw UnimplementedError();
+    try {
+      final User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        throw Exception('No such a user logged in');
+      }
+      await _googleSignIn.signOut();
+      await currentUser.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw Exception(
+          'Please log in again before deleting your account',
+        );
+      }
+      throw Exception(
+        'Failed to delete account: ${e.message}',
+      );
+    } catch (e) {
+      throw Exception('Problem deleting account: $e');
+    }
   }
 
   @override
-  Future<AppUser?> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<String> sendPasswordResetEmail(String email) {
-    // TODO: implement sendPasswordResetEmail
-    throw UnimplementedError();
+  Future<String> sendPasswordResetEmail(
+    String email,
+  ) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return 'Password reset email! Check your inbox';
+    } catch (e) {
+      throw Exception('Problem sending email: $e');
+    }
   }
 }
