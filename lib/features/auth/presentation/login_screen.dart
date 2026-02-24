@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do/core/utils/custom_text_form_field.dart';
+import 'package:to_do/core/utils/log_reg_button.dart';
+import 'package:to_do/features/auth/provider/auth_notifier.dart';
+import 'package:to_do/features/auth/provider/text_field_notifier.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() =>
+      _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController =
@@ -18,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
+
+  bool hasSubmited = false;
 
   @override
   void dispose() {
@@ -30,6 +37,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final emailError = ref.watch(emailErrorProvider);
+    final emailNotifier = ref.read(
+      emailErrorProvider.notifier,
+    );
+
+    final passwordError = ref.watch(passwordErrorProvider);
+    final passwordNotifier = ref.read(
+      passwordErrorProvider.notifier,
+    );
+
+    final asyncAuthState = ref.watch(
+      asyncAuthNotifierProvider,
+    );
+    final authNotifier = ref.read(
+      asyncAuthNotifierProvider.notifier,
+    );
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(
         255,
@@ -45,20 +69,92 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(10),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  CustomTextFormField(
-                    controller: _emailController,
-                    focusNode: _emailFocus,
-                    keyboardType:
-                        TextInputType.emailAddress,
-                    obscureText: false,
-                    labelText: 'Email',
-                    prefixIcon: Icons.email_outlined,
-                  ),
-                ],
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.vertical,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment:
+                      MainAxisAlignment.center,
+                  children: [
+                    CustomTextFormField(
+                      controller: _emailController,
+                      focusNode: _emailFocus,
+                      errorText: emailError,
+                      onChanged: (value) {
+                        if (hasSubmited) {
+                          emailNotifier.validateEmail(
+                            value,
+                          );
+                        }
+                      },
+                      keyboardType:
+                          TextInputType.emailAddress,
+                      obscureText: false,
+                      labelText: 'Email',
+                      prefixIcon: Icons.email_outlined,
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextFormField(
+                      controller: _passwordController,
+                      focusNode: _passwordFocus,
+                      errorText: passwordError,
+                      onChanged: (value) {
+                        if (hasSubmited) {
+                          passwordNotifier.validatePassword(
+                            value,
+                          );
+                        }
+                      },
+                      obscureText: true,
+                      labelText: 'Password',
+                      prefixIcon: Icons.lock_outline,
+                    ),
+                    const SizedBox(height: 10),
+                    LogRegButton(
+                      onPressed: asyncAuthState.isLoading
+                          ? null
+                          : () {
+                              setState(
+                                () => hasSubmited = true,
+                              );
+                              emailNotifier.validateEmail(
+                                _emailController.text,
+                              );
+                              passwordNotifier
+                                  .validatePassword(
+                                    _passwordController
+                                        .text,
+                                  );
+                              if (emailError == null &&
+                                  passwordError == null) {
+                                authNotifier
+                                    .loginWithEmailPassword(
+                                      _emailController.text,
+                                      _passwordController
+                                          .text,
+                                    );
+                              }
+                            },
+                      color: Colors.blue,
+                      child: asyncAuthState.isLoading
+                          ? SizedBox(
+                              width: 24,
+                              height: 24,
+                              child:
+                                  CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                            )
+                          : Text('Login'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

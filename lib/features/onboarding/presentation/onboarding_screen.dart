@@ -109,7 +109,6 @@ class OnboardingScreen extends ConsumerWidget {
                   onboardingStatus.completeOnboarding();
                 }
               },
-
               text:
                   (currentPage >= 0 &&
                       currentPage < pages.length - 1)

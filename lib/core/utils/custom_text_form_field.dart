@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
+  final String? errorText;
+  final Function(String)? onChanged;
+  // final TextFieldNotifier notifier;
   final TextInputType? keyboardType;
   final bool obscureText;
   final String labelText;
@@ -13,8 +16,11 @@ class CustomTextFormField extends StatelessWidget {
     required this.obscureText,
     required this.labelText,
     required this.prefixIcon,
+    this.onChanged,
+    // required this.notifier,
     this.focusNode,
     this.keyboardType,
+    this.errorText,
   });
 
   @override
@@ -39,9 +45,18 @@ class CustomTextFormField extends StatelessWidget {
       onTapOutside: (event) {
         focusNode!.unfocus();
       },
-      onChanged: (value) {},
-      validator: (value) {},
+      onChanged: onChanged,
+      // onChanged: (value) {
+      //   notifier.validateEmail(value);
+      // },
       decoration: InputDecoration(
+        errorText: errorText,
+        errorStyle: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w800,
+          color: const Color.fromARGB(255, 134, 9, 9),
+        ),
+        visualDensity: VisualDensity.compact,
         labelText: labelText,
         labelStyle: TextStyle(
           color: Colors.black87,
