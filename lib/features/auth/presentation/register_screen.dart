@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:to_do/core/utils/custom_button.dart';
+import 'package:to_do/core/utils/custom_divider.dart';
+import 'package:to_do/core/utils/custom_text.dart';
 import 'package:to_do/core/utils/custom_text_form_field.dart';
+import 'package:to_do/core/utils/get_log_in_options.dart';
 import 'package:to_do/core/utils/log_reg_button.dart';
 import 'package:to_do/features/auth/provider/auth_notifier.dart';
 import 'package:to_do/features/auth/provider/text_field_notifier.dart';
@@ -215,6 +218,31 @@ class _RegisterScreenState
                             )
                           : Text('Sign up'),
                     ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomDivider(
+                            indent: 5.0,
+                            endIndent: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        CustomText(
+                          text: 'OR',
+                          color: Colors.black87,
+                          fontSize: 17,
+                        ),
+                        Expanded(
+                          child: CustomDivider(
+                            indent: 5.0,
+                            endIndent: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const GetLogInOptions(),
                   ],
                 ),
               ),
