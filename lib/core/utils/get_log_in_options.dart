@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:to_do/features/auth/provider/auth_notifier.dart';
 
-class GetLogInOptions extends StatelessWidget {
+class GetLogInOptions extends ConsumerWidget {
   const GetLogInOptions({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncAuthState = ref.watch(
+      asyncAuthNotifierProvider,
+    );
+    final authNotifier = ref.read(
+      asyncAuthNotifierProvider.notifier,
+    );
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        getOptions('assets/images/google.png', () {}),
+        getOptions('assets/images/google.png', () {
+          authNotifier.loginWithGoogle();
+        }),
         getOptions('assets/images/facebook.png', () {}),
         getOptions('assets/images/phone.png', () {}),
       ],

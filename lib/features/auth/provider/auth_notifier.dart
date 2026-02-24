@@ -37,6 +37,14 @@ class AuthNotifier extends AsyncNotifier<AppUser?> {
     try {
       final AppUser? user = await _authRepo
           .logInWithGoogle();
+      if (user != null) {
+        await _firestore
+            .collection('users')
+            .doc(user.uid)
+            .set({
+              ...user.toMap(),
+            }, SetOptions(merge: true));
+      }
       state = AsyncValue.data(user);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
