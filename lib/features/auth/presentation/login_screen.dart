@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:to_do/core/utils/custom_button.dart';
 import 'package:to_do/core/utils/custom_text_form_field.dart';
 import 'package:to_do/core/utils/log_reg_button.dart';
 import 'package:to_do/features/auth/provider/auth_notifier.dart';
@@ -113,6 +115,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       obscureText: true,
                       labelText: 'Password',
                       prefixIcon: Icons.lock_outline,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                      ),
+                      child: Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        mainAxisAlignment:
+                            MainAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'don\'t have an account?',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          CustomButton(
+                            onTap: () {
+                              context.go('/register');
+                            },
+                            text: 'sign up',
+                            color: Colors.black87,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 10),
                     LogRegButton(

@@ -23,6 +23,18 @@ class TextFieldNotifier extends Notifier<String?> {
     state = null;
   }
 
+  void validateName(String value) {
+    if (value.isEmpty) {
+      state = 'Name is required';
+      return;
+    }
+    if (value.length < 3) {
+      state = 'Name must be at least 3 characters';
+      return;
+    }
+    state = null;
+  }
+
   void validatePassword(String value) {
     if (value.isEmpty) {
       state = 'password can\'t be empty';
@@ -42,6 +54,11 @@ final emailErrorProvider =
     );
 
 final passwordErrorProvider =
+    NotifierProvider<TextFieldNotifier, String?>(
+      TextFieldNotifier.new,
+    );
+
+final nameErrorProvider =
     NotifierProvider<TextFieldNotifier, String?>(
       TextFieldNotifier.new,
     );
