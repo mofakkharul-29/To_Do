@@ -28,20 +28,34 @@ class RoutingListenable extends ChangeNotifier {
     _currentUser = authState.value;
 
     ref.listen(onboardingStatusProvider, (previous, next) {
-      _isOnboardingLoading = next.isLoading;
-      _isFirstLaunch = next.value ?? true;
-      notifyListeners();
+      final newLoading = next.isLoading;
+      final newFirstLaunch = next.value ?? true;
+
+      if (_isOnboardingLoading != newLoading ||
+          _isFirstLaunch != newFirstLaunch) {
+        _isOnboardingLoading = newLoading;
+        _isFirstLaunch = newFirstLaunch;
+        notifyListeners();
+      }
     });
 
     ref.listen(appUserProvider, (previous, next) {
-      _isAuthLoading = next.isLoading;
-      _currentUser = next.value;
-      notifyListeners();
+      final newLoading = next.isLoading;
+      final newUser = next.value;
+
+      if (_isAuthLoading != newLoading ||
+          _currentUser != newUser) {
+        _isAuthLoading = newLoading;
+        _currentUser = newUser;
+        notifyListeners();
+      }
     });
 
     ref.listen(appSplashNotifierProvider, (previous, next) {
-      _isSplashDone = next;
-      notifyListeners();
+      if (_isSplashDone != next) {
+        _isSplashDone = next;
+        notifyListeners();
+      }
     });
   }
 

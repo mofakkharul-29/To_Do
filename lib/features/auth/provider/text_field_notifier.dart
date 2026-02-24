@@ -6,6 +6,10 @@ class TextFieldNotifier extends Notifier<String?> {
     return null;
   }
 
+  void clear() {
+    state = null;
+  }
+
   void validateEmail(String value) {
     if (value.isEmpty) {
       state = 'Email is required';

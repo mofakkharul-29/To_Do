@@ -77,18 +77,65 @@ class RouterConfiguration {
         GoRoute(
           path: '/login',
           name: loginRoute,
-          builder: (context, state) => const LoginScreen(),
+          pageBuilder: (context, state) =>
+              CustomTransitionPage(
+                key: state.pageKey,
+                child: const LoginScreen(),
+                transitionsBuilder:
+                    (
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+              ),
         ),
         GoRoute(
           path: '/register',
           name: registerRoute,
-          builder: (context, state) =>
-              const RegisterScreen(),
+          pageBuilder: (context, state) =>
+              CustomTransitionPage(
+                key: state.pageKey,
+                child: const RegisterScreen(),
+                transitionsBuilder:
+                    (
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+              ),
         ),
         GoRoute(
           path: '/home',
           name: homeRoute,
-          builder: (context, state) => const HomeScreen(),
+          pageBuilder: (context, state) =>
+              CustomTransitionPage(
+                key: state.pageKey,
+                child: const HomeScreen(),
+                transitionsBuilder:
+                    (
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+              ),
         ),
       ],
     );
