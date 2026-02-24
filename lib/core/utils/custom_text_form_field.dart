@@ -5,7 +5,6 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final String? errorText;
   final Function(String)? onChanged;
-  // final TextFieldNotifier notifier;
   final TextInputType? keyboardType;
   final bool obscureText;
   final String labelText;
@@ -17,7 +16,6 @@ class CustomTextFormField extends StatelessWidget {
     required this.labelText,
     required this.prefixIcon,
     this.onChanged,
-    // required this.notifier,
     this.focusNode,
     this.keyboardType,
     this.errorText,
@@ -46,9 +44,6 @@ class CustomTextFormField extends StatelessWidget {
         focusNode!.unfocus();
       },
       onChanged: onChanged,
-      // onChanged: (value) {
-      //   notifier.validateEmail(value);
-      // },
       decoration: InputDecoration(
         errorText: errorText,
         errorStyle: TextStyle(
