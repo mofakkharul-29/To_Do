@@ -5,6 +5,7 @@ import 'package:to_do/core/utils/custom_button.dart';
 import 'package:to_do/core/utils/custom_divider.dart';
 import 'package:to_do/core/utils/custom_text.dart';
 import 'package:to_do/core/utils/custom_text_form_field.dart';
+import 'package:to_do/core/utils/get_friendly_error.dart';
 import 'package:to_do/core/utils/get_log_in_options.dart';
 import 'package:to_do/core/utils/log_reg_button.dart';
 import 'package:to_do/features/auth/provider/auth_notifier.dart';
@@ -175,48 +176,72 @@ class _RegisterScreenState
                       ),
                     ),
                     const SizedBox(height: 10),
-                    LogRegButton(
-                      onPressed: asyncAuthState.isLoading
-                          ? null
-                          : () {
-                              setState(
-                                () => hasSubmited = true,
-                              );
-                              emailNotifier.validateEmail(
-                                _emailController.text,
-                              );
-                              passwordNotifier
-                                  .validatePassword(
-                                    _passwordController
-                                        .text,
+                    Column(
+                      children: [
+                        LogRegButton(
+                          onPressed:
+                              asyncAuthState.isLoading
+                              ? null
+                              : () {
+                                  setState(
+                                    () =>
+                                        hasSubmited = true,
                                   );
-                              nameNotifier.validateName(
-                                _nameController.text,
-                              );
-                              if (emailError == null &&
-                                  passwordError == null &&
-                                  nameError == null) {
-                                authNotifier
-                                    .registerWithEmailPassword(
-                                      _emailController.text,
-                                      _nameController.text,
-                                      _passwordController
-                                          .text,
-                                    );
-                              }
-                            },
-                      color: Colors.blue,
-                      child: asyncAuthState.isLoading
-                          ? SizedBox(
-                              width: 24,
-                              height: 24,
-                              child:
-                                  CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 2,
-                                  ),
-                            )
-                          : Text('Sign up'),
+                                  emailNotifier
+                                      .validateEmail(
+                                        _emailController
+                                            .text,
+                                      );
+                                  passwordNotifier
+                                      .validatePassword(
+                                        _passwordController
+                                            .text,
+                                      );
+                                  nameNotifier.validateName(
+                                    _nameController.text,
+                                  );
+                                  if (emailError == null &&
+                                      passwordError ==
+                                          null &&
+                                      nameError == null) {
+                                    authNotifier
+                                        .registerWithEmailPassword(
+                                          _emailController
+                                              .text,
+                                          _nameController
+                                              .text,
+                                          _passwordController
+                                              .text,
+                                        );
+                                  }
+                                },
+                          color: Colors.blue,
+                          child: asyncAuthState.isLoading
+                              ? SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child:
+                                      CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                )
+                              : Text('Sign up'),
+                        ),
+                        const SizedBox(height: 8),
+                        if (asyncAuthState.hasError)
+                          Text(
+                            getFriendlyError(asyncAuthState.error),
+                            style: TextStyle(
+                              color: Colors.red.shade700,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 15),
                     Row(
@@ -242,7 +267,9 @@ class _RegisterScreenState
                         ),
                       ],
                     ),
-                    const GetLogInOptions(),
+                    GetLogInOptions(
+                      authNotifier: authNotifier,
+                    ),
                   ],
                 ),
               ),

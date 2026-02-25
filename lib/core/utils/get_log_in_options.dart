@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do/features/auth/provider/auth_notifier.dart';
 
-class GetLogInOptions extends ConsumerWidget {
-  const GetLogInOptions({super.key});
+class GetLogInOptions extends StatelessWidget {
+  final AuthNotifier authNotifier;
+  const GetLogInOptions({
+    super.key,
+    required this.authNotifier,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final asyncAuthState = ref.watch(
-      asyncAuthNotifierProvider,
-    );
-    final authNotifier = ref.read(
-      asyncAuthNotifierProvider.notifier,
-    );
+  Widget build(BuildContext context) {
+    // final asyncAuthState = ref.watch(
+    //   asyncAuthNotifierProvider,
+    // );
+    // final authNotifier = ref.read(
+    //   asyncAuthNotifierProvider.notifier,
+    // );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
