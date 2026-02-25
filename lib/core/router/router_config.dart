@@ -7,7 +7,10 @@ import 'package:to_do/features/auth/presentation/login_screen.dart';
 import 'package:to_do/features/auth/presentation/register_screen.dart';
 import 'package:to_do/features/home/presentation/home_screen.dart';
 import 'package:to_do/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:to_do/features/profile/presentation/profile_screen.dart';
 import 'package:to_do/features/splash/presentation/splash_screen.dart';
+import 'package:to_do/features/tasks/presentation/task_screen.dart';
+import 'package:to_do/history/presentation/history_screen.dart';
 
 class RouterConfiguration {
   static final _rootNavigationKey =
@@ -53,7 +56,8 @@ class RouterConfiguration {
         if (authPaths.contains(path) ||
             path == '/onboarding' ||
             path == '/splash') {
-          return '/home';
+          // return '/home';
+          return '/tasks';
         }
 
         return null;
@@ -116,26 +120,49 @@ class RouterConfiguration {
                     },
               ),
         ),
-        GoRoute(
-          path: '/home',
-          name: homeRoute,
-          pageBuilder: (context, state) =>
-              CustomTransitionPage(
-                key: state.pageKey,
-                child: const HomeScreen(),
-                transitionsBuilder:
-                    (
-                      context,
-                      animation,
-                      secondaryAnimation,
-                      child,
-                    ) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
-              ),
+        StatefulShellRoute.indexedStack(
+          parentNavigatorKey: _rootNavigationKey,
+          builder: (context, state, navigationShell) {
+            final String path = state.uri.path;
+            return HomeScreen(
+              navigationShell: navigationShell,
+              path: path,
+            );
+          },
+          branches: [
+            StatefulShellBranch(
+              routes: <RouteBase>[
+                GoRoute(
+                  path: '/tasks',
+                  name: tasksRoute,
+                  builder: (context, state) =>
+                      const TaskScreen(),
+                ),
+              ],
+            ),
+
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/history',
+                  name: historyRoute,
+                  builder: (context, state) =>
+                      const HistoryScreen(),
+                ),
+              ],
+            ),
+
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/profile',
+                  name: profileRoute,
+                  builder: (context, state) =>
+                      const ProfileScreen(),
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );

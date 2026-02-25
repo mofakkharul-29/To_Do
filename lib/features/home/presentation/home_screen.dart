@@ -1,24 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:to_do/features/auth/provider/auth_notifier.dart';
+import 'package:go_router/go_router.dart';
+import 'package:to_do/features/home/widgets/custom_bottom_nav_bar.dart';
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  final String path;
+  final StatefulNavigationShell navigationShell;
+  const HomeScreen({
+    super.key,
+    required this.navigationShell,
+    required this.path,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(
-      asyncAuthNotifierProvider.notifier,
-    );
-
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            notifier.logOut();
-          },
-          child: Text('logout'),
-        ),
+      appBar: AppBar(
+        title: getTitle(path),
+        elevation: 1.0,
+        centerTitle: true,
+        backgroundColor: Colors.grey,
+      ),
+      body: navigationShell,
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: navigationShell.currentIndex,
+        onTap: (value) {
+          navigationShell.goBranch(
+            value,
+            initialLocation:
+                value == navigationShell.currentIndex,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget getTitle(String title) {
+    String finalTitle;
+    if (title == '/tasks') {
+      finalTitle = 'Tasks';
+    } else if (title == '/history') {
+      finalTitle = 'History';
+    } else {
+      finalTitle = 'Profile';
+    }
+    return Text(
+      finalTitle,
+      style: TextStyle(
+        color: Colors.black87,
+        fontWeight: FontWeight.w800,
+        letterSpacing: 0.5,
       ),
     );
   }
