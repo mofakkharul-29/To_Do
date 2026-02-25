@@ -141,6 +141,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           const SizedBox(width: 5),
                           CustomButton(
                             onTap: () {
+                              emailNotifier.clear();
+                              passwordNotifier.clear();
+                              authNotifier.reset();
                               context.go('/register');
                             },
                             text: 'sign up',
@@ -199,7 +202,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const SizedBox(height: 8),
                         if (asyncAuthState.hasError)
                           Text(
-                            getFriendlyError(asyncAuthState.error),
+                            getFriendlyError(
+                              asyncAuthState.error,
+                            ),
                             style: const TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,

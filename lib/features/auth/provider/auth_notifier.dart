@@ -18,6 +18,10 @@ class AuthNotifier extends AsyncNotifier<AppUser?> {
     return user;
   }
 
+  void reset() {
+    state = const AsyncValue.data(null);
+  }
+
   Future<void> loginWithEmailPassword(
     String email,
     String password,

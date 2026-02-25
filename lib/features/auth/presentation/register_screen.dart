@@ -167,6 +167,10 @@ class _RegisterScreenState
                           const SizedBox(width: 5),
                           CustomButton(
                             onTap: () {
+                              emailNotifier.clear();
+                              passwordNotifier.clear();
+                              nameNotifier.clear();
+                              authNotifier.reset();
                               context.go('/login');
                             },
                             text: 'login',
@@ -231,7 +235,9 @@ class _RegisterScreenState
                         const SizedBox(height: 8),
                         if (asyncAuthState.hasError)
                           Text(
-                            getFriendlyError(asyncAuthState.error),
+                            getFriendlyError(
+                              asyncAuthState.error,
+                            ),
                             style: TextStyle(
                               color: Colors.red.shade700,
                               fontWeight: FontWeight.w600,
