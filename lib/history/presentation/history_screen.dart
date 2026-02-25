@@ -5,6 +5,14 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('history')));
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(
+        255,
+        175,
+        173,
+        173,
+      ),
+      body: Center(child: Text('history')),
+    );
   }
 }
