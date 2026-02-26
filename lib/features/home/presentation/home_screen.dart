@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do/core/utils/custom_floating_action_button.dart';
 import 'package:to_do/features/home/widgets/custom_bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,6 +32,7 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: CustomFloatingActionButton(),
     );
   }
 
