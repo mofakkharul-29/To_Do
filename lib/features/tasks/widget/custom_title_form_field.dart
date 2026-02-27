@@ -7,11 +7,13 @@ class CustomTitleFormField extends StatelessWidget {
   final String? errorText;
   final IconData prefixIcon;
   final Function(String)? onChanged;
+  final int maxLines;
   const CustomTitleFormField({
     super.key,
     required this.labelText,
     required this.controller,
     required this.prefixIcon,
+    required this.maxLines,
     this.onChanged,
     this.focusNode,
     this.errorText,
@@ -23,6 +25,7 @@ class CustomTitleFormField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       onChanged: onChanged,
+      maxLines: maxLines,
       showCursor: true,
       cursorErrorColor: Colors.red,
       cursorRadius: Radius.circular(4),
