@@ -91,9 +91,15 @@ class TaskScreen extends ConsumerWidget {
                     return true;
                   }
                 },
-                child: CustomListTile(
-                  task: task,
-                  notifier: taskActionProviderNotifier,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 6,
+                  ),
+                  child: CustomListTile(
+                    task: task,
+                    notifier: taskActionProviderNotifier,
+                  ),
                 ),
               );
             },

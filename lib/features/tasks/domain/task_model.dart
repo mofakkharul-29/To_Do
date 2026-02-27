@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class TaskModel {
   final String id;
   final String title;
-  final String? description;
+  final String? descriptions;
   final DateTime createdAt;
   final DateTime? completedAt;
 
   TaskModel({
     required this.id,
     required this.title,
-    this.description,
+    this.descriptions,
     required this.createdAt,
     this.completedAt,
   });
@@ -20,25 +20,28 @@ class TaskModel {
   TaskModel copyWith(
     String? id,
     String? title,
-    String? description,
+    String? descriptions,
     DateTime? createdAt,
     DateTime? completedAt,
   ) {
     return TaskModel(
       id: id ?? this.id,
       title: title ?? this.title,
-      description: description ?? this.description,
+      descriptions: descriptions ?? this.descriptions,
       createdAt: createdAt ?? this.createdAt,
       completedAt: completedAt ?? this.completedAt,
     );
   }
 
-  factory TaskModel.fromMap(Map<String, dynamic> task, String documentId) {
+  factory TaskModel.fromMap(
+    Map<String, dynamic> task,
+    String documentId,
+  ) {
     return TaskModel(
       // id: task['id'] as String,
       id: documentId,
       title: task['title'] as String,
-      description: task['description'] as String?,
+      descriptions: task['descriptions'] as String?,
       createdAt: (task['createdAt'] as Timestamp).toDate(),
       completedAt: task['completedAt'] != null
           ? (task['completedAt'] as Timestamp).toDate()
@@ -50,7 +53,7 @@ class TaskModel {
     return {
       // 'id': id,
       'title': title,
-      'descriptions': description,
+      'descriptions': descriptions,
       'createdAt': Timestamp.fromDate(createdAt),
       'completedAt': completedAt != null
           ? Timestamp.fromDate(completedAt!)

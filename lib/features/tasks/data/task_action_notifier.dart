@@ -24,7 +24,7 @@ class TaskActionNotifier extends AsyncNotifier<void> {
       final task = TaskModel(
         id: '',
         title: title,
-        description: description,
+        descriptions: description,
         createdAt: DateTime.now(),
         completedAt: null,
       );

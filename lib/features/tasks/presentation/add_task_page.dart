@@ -16,6 +16,7 @@ class AddTaskPage extends ConsumerStatefulWidget {
 }
 
 class _AddTaskPageState extends ConsumerState<AddTaskPage> {
+  final _formKey = GlobalKey<FormState>();
   bool hasClicked = false;
 
   final TextEditingController _titleController =
@@ -53,6 +54,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
               horizontal: 17,
             ),
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
                   CustomTitleFormField(

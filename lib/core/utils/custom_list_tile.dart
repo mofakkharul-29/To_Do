@@ -14,16 +14,23 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.black87, width: 2.5),
+        borderRadius: BorderRadius.circular(5),
+      ),
       title: Text(
         task.title,
         style: TextStyle(
           decoration: task.isComplete
               ? TextDecoration.lineThrough
               : null,
+          fontSize: 17,
+          fontWeight: FontWeight.w800,
+          color: Colors.black87,
         ),
       ),
-      subtitle: task.description != null
-          ? Text(task.description!)
+      subtitle: task.descriptions != null
+          ? Text(task.descriptions!)
           : null,
       trailing: Checkbox(
         value: task.isComplete,
