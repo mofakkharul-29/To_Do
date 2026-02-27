@@ -10,6 +10,7 @@ import 'package:to_do/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:to_do/features/profile/presentation/profile_screen.dart';
 import 'package:to_do/features/splash/presentation/splash_screen.dart';
 import 'package:to_do/features/tasks/presentation/task_screen.dart';
+import 'package:to_do/features/tasks/presentation/add_task_page.dart';
 import 'package:to_do/history/presentation/history_screen.dart';
 
 class RouterConfiguration {
@@ -137,6 +138,14 @@ class RouterConfiguration {
                   name: tasksRoute,
                   builder: (context, state) =>
                       const TaskScreen(),
+                  routes: [
+                    GoRoute(
+                      path: 'add',
+                      name: addTaskPageRoute,
+                      builder: (context, state) =>
+                          const AddTaskPage(),
+                    ),
+                  ],
                 ),
               ],
             ),

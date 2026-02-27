@@ -32,7 +32,14 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: CustomFloatingActionButton(),
+      floatingActionButton:
+          (path == '/tasks/add' ||
+              path == '/history' ||
+              path == '/profile')
+          ? null
+          : CustomFloatingActionButton(),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -42,8 +49,10 @@ class HomeScreen extends StatelessWidget {
       finalTitle = 'Tasks';
     } else if (title == '/history') {
       finalTitle = 'History';
-    } else {
+    } else if (title == '/profile') {
       finalTitle = 'Profile';
+    } else {
+      finalTitle = '';
     }
     return Text(
       finalTitle,

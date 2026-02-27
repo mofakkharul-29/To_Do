@@ -7,3 +7,5 @@ const String registerRoute = 'register';
 const String tasksRoute = 'tasks';
 const String historyRoute = 'history';
 const String profileRoute = 'profile';
+
+const String addTaskPageRoute = 'addTask';
