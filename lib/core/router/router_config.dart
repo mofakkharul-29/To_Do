@@ -9,8 +9,8 @@ import 'package:to_do/features/home/presentation/home_screen.dart';
 import 'package:to_do/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:to_do/features/profile/presentation/profile_screen.dart';
 import 'package:to_do/features/splash/presentation/splash_screen.dart';
-import 'package:to_do/features/tasks/presentation/task_screen.dart';
 import 'package:to_do/features/tasks/presentation/add_task_page.dart';
+import 'package:to_do/features/tasks/presentation/task_screen.dart';
 import 'package:to_do/history/presentation/history_screen.dart';
 
 class RouterConfiguration {
@@ -142,8 +142,25 @@ class RouterConfiguration {
                     GoRoute(
                       path: 'add',
                       name: addTaskPageRoute,
-                      builder: (context, state) =>
-                          const AddTaskPage(),
+                      // builder: (context, state) =>
+                      //     const AddTaskPage(),
+                      pageBuilder: (context, state) =>
+                          CustomTransitionPage(
+                            key: state.pageKey,
+                            child: const AddTaskPage(),
+                            transitionsBuilder:
+                                (
+                                  context,
+                                  animation,
+                                  secondaryAnimation,
+                                  child,
+                                ) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                          ),
                     ),
                   ],
                 ),

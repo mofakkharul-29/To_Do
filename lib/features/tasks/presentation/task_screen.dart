@@ -94,7 +94,7 @@ class TaskScreen extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8.0,
-                    vertical: 6,
+                    vertical: 5,
                   ),
                   child: CustomListTile(
                     task: task,
