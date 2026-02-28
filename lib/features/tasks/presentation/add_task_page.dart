@@ -93,7 +93,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
                             setState(() {
                               hasClicked = true;
                             });
-                            ref
+                            final isValid = ref
                                 .read(
                                   titleErrorProvider
                                       .notifier,
@@ -101,12 +101,11 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
                                 .validateTitle(
                                   _titleController.text,
                                 );
-                            if (titleError == null) {
-                              taskActionNotifier.addTask(
-                                _titleController.text,
-                                _descriptionController.text,
-                              );
-                            }
+                            if (!isValid) return;
+                            taskActionNotifier.addTask(
+                              _titleController.text,
+                              _descriptionController.text,
+                            );
                             context.go('/tasks');
                           },
                     child: taskAction.isLoading

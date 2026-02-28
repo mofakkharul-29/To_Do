@@ -10,15 +10,17 @@ class TaskFieldNotifier extends Notifier<String?> {
     state = null;
   }
 
-  void validateTitle(String title) {
+  bool validateTitle(String title) {
     if (title.isEmpty) {
       state = 'title is required';
-      return;
+      return false;
     }
     if (title.length < 6) {
       state = 'title must be at least 6 charachters';
+      return false;
     }
     state = null;
+    return true;
   }
 }
 
