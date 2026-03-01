@@ -36,9 +36,7 @@ class CustomPieChart extends StatelessWidget {
       child: Stack(
         children: [
           PieChart(
-            duration:const Duration(
-              milliseconds: 700,
-            ),
+            duration: const Duration(milliseconds: 700),
             PieChartData(
               sectionsSpace: 2,
               centerSpaceRadius: size * 0.28,
@@ -77,7 +75,12 @@ class CustomPieChart extends StatelessWidget {
                 fontSize:
                     size * 0.15, // Responsive font size
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 97, 20, 231),
+                color: const Color.fromARGB(
+                  255,
+                  97,
+                  20,
+                  231,
+                ),
               ),
             ),
           ),
