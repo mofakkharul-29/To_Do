@@ -44,10 +44,10 @@ class CustomBottomNavBar extends StatelessWidget {
           activeIcon: Icon(Icons.history_rounded),
         ),
         BottomNavigationBarItem(
-          label: 'settings',
-          tooltip: 'settings',
-          icon: Icon(Icons.settings_outlined),
-          activeIcon: Icon(Icons.settings),
+          label: 'profile',
+          tooltip: 'profile',
+          icon: Icon(Icons.person_outline),
+          activeIcon: Icon(Icons.person),
         ),
       ],
     );
