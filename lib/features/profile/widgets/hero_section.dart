@@ -14,6 +14,10 @@ class HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (user == null) {
+      return const SizedBox();
+    }
+
     return Card(
       color: Colors.transparent,
       elevation: 2.5,
@@ -32,14 +36,14 @@ class HeroSection extends StatelessWidget {
           color: Colors.white.withAlpha(110),
           borderRadius: BorderRadius.circular(5.0),
           boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 90, 89, 89),
+            const BoxShadow(
+              color: Color.fromARGB(255, 90, 89, 89),
               blurRadius: 2.5,
               spreadRadius: 1.0,
               offset: Offset(2.5, 0.0),
             ),
-            BoxShadow(
-              color: const Color.fromARGB(255, 90, 89, 89),
+            const BoxShadow(
+              color: Color.fromARGB(255, 90, 89, 89),
               blurRadius: 2.5,
               spreadRadius: 1.0,
               offset: Offset(-2.5, 2.5),
@@ -55,17 +59,17 @@ class HeroSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   getText(
-                    'Username : ${user!.name?.isNotEmpty == true ? user!.name : 'your name'}',
+                    'Username : ${user?.name?.isNotEmpty == true ? user!.name : 'your name'}',
                   ),
                   const SizedBox(height: 8),
-                  getText('Email : ${user!.email}'),
+                  getText('Email : ${user?.email ?? ''}'),
                   const SizedBox(height: 12),
                 ],
               ),
             ),
             UserPhoto(
-              photoUrl: user!.photoUrl,
-              userName: user!.name,
+              photoUrl: user?.photoUrl,
+              userName: user?.name,
             ),
           ],
         ),
