@@ -36,16 +36,18 @@ class CustomPieChart extends StatelessWidget {
       child: Stack(
         children: [
           PieChart(
+            duration:const Duration(
+              milliseconds: 700,
+            ),
             PieChartData(
               sectionsSpace: 2,
-              centerSpaceRadius: size * 0.3,
+              centerSpaceRadius: size * 0.28,
               sections: [
-                // Completed Section
                 PieChartSectionData(
                   titlePositionPercentageOffset: 0.3,
                   color: Colors.green,
                   value: completedTasks.toDouble(),
-                  title: 'Completed',
+                  title: '',
                   radius: size * 0.25,
                   titleStyle: const TextStyle(
                     fontSize: 12,
@@ -53,11 +55,10 @@ class CustomPieChart extends StatelessWidget {
                     color: Colors.black87,
                   ),
                 ),
-                // Pending Section
                 PieChartSectionData(
                   color: Colors.amber,
                   value: pendingTasks.toDouble(),
-                  title: 'pending',
+                  title: '',
                   radius: size * 0.25,
                   titleStyle: const TextStyle(
                     fontSize: 12,
