@@ -56,7 +56,7 @@ class RecentCompletedCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
 
               if (recentTasks.isEmpty)
                 const Text("No completed tasks yet.")
@@ -67,6 +67,7 @@ class RecentCompletedCard extends StatelessWidget {
                   final task = recentTasks[index];
                   return Column(
                     children: [
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           const Icon(
@@ -100,7 +101,7 @@ class RecentCompletedCard extends StatelessWidget {
                             ).format(task.completedAt!),
                             style: const TextStyle(
                               fontSize: 12,
-                              color: Colors.grey,
+                              color: Colors.black87,
                             ),
                           ),
                           if (index !=
