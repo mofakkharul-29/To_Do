@@ -35,14 +35,14 @@ class CustomCard extends StatelessWidget {
           color: Colors.white.withAlpha(110),
           borderRadius: BorderRadius.circular(5.0),
           boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 90, 89, 89),
+            const BoxShadow(
+              color: Color.fromARGB(255, 90, 89, 89),
               blurRadius: 2.5,
               spreadRadius: 1.0,
               offset: Offset(2.5, 0.0),
             ),
-            BoxShadow(
-              color: const Color.fromARGB(255, 90, 89, 89),
+            const BoxShadow(
+              color: Color.fromARGB(255, 90, 89, 89),
               blurRadius: 2.5,
               spreadRadius: 1.0,
               offset: Offset(-2.5, 2.5),
@@ -51,43 +51,51 @@ class CustomCard extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                getTaskText(
-                  'Total Tasks',
-                  ' : ${tasks.length}',
-                  48,
-                  Colors.black87,
-                ),
-                getTaskText(
-                  'Completed Tasks',
-                  ' : ${completedTasks.length}',
-                  1.5,
-                  Colors.green,
-                ),
-                getTaskText(
-                  'Pending Tasks',
-                  ' : ${pendingTasks.length}',
-                  22.5,
-                  Colors.amber,
-                ),
-                getTaskText(
-                  'Completion Rate',
-                  ' : $formattedPercentage %',
-                  7,
-                  Color.fromARGB(255, 97, 20, 231),
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getTaskText(
+                    'Total Tasks',
+                    ' : ${tasks.length}',
+                    48,
+                    Colors.black87,
+                  ),
+                  getTaskText(
+                    'Completed Tasks',
+                    ' : ${completedTasks.length}',
+                    1.5,
+                    Colors.green,
+                  ),
+                  getTaskText(
+                    'Pending Tasks',
+                    ' : ${pendingTasks.length}',
+                    22.5,
+                    Colors.amber,
+                  ),
+                  getTaskText(
+                    'Completion',
+                    ' : $formattedPercentage %',
+                    7,
+                    Color.fromARGB(255, 97, 20, 231),
+                  ),
+                ],
+              ),
             ),
-            CustomPieChart(
-              totalTasks: tasks.length,
-              completedTasks: completedTasks.length,
-              size: 130,
+            SizedBox(
+              width: 130,
+              height: 130,
+              child: CustomPieChart(
+                totalTasks: tasks.length,
+                completedTasks: completedTasks.length,
+                size: 130,
+              ),
             ),
-            const SizedBox(width: 1.0),
+            const SizedBox(width: 8),
           ],
         ),
       ),
@@ -117,13 +125,16 @@ class CustomCard extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
-          SizedBox(width: width),
-          Text(
-            lastText,
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 15,
-              fontWeight: FontWeight.w900,
+          SizedBox(width: 5),
+          Expanded(
+            child: Text(
+              lastText,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 15,
+                fontWeight: FontWeight.w900,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

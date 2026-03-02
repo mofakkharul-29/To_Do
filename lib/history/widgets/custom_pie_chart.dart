@@ -29,7 +29,6 @@ class CustomPieChart extends StatelessWidget {
       );
     }
 
-    // 1. Wrapped in Stack to overlay text in the center
     return SizedBox(
       width: size,
       height: size,
@@ -46,7 +45,7 @@ class CustomPieChart extends StatelessWidget {
                   color: Colors.green,
                   value: completedTasks.toDouble(),
                   title: '',
-                  radius: size * 0.25,
+                  radius: size * 0.20,
                   titleStyle: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -57,14 +56,13 @@ class CustomPieChart extends StatelessWidget {
                   color: Colors.amber,
                   value: pendingTasks.toDouble(),
                   title: '',
-                  radius: size * 0.25,
+                  radius: size * 0.20,
                   titleStyle: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
-                // 2. Overlapping rate slice removed
               ],
             ),
           ),
@@ -72,8 +70,7 @@ class CustomPieChart extends StatelessWidget {
             child: Text(
               displayPercentage,
               style: TextStyle(
-                fontSize:
-                    size * 0.15, // Responsive font size
+                fontSize: size * 0.15,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(
                   255,
