@@ -155,24 +155,93 @@ class FirebaseAuthRepo implements AuthModel {
     }
   }
 
+  Future<void> reauthenticateWithPassword(
+    String password,
+  ) async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw Exception('No logged in user');
+    }
+    final credential = EmailAuthProvider.credential(
+      email: user.email!,
+      password: password,
+    );
+    await user.reauthenticateWithCredential(credential);
+  }
+
+  Future<void> reauthenticateWithGoogle() async {
+    final googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      throw Exception('Google sign-in cancelled');
+    }
+
+    final googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await _auth.currentUser!.reauthenticateWithCredential(
+      credential,
+    );
+  }
+
+  // @override
+  // Future<void> deleteAccount() async {
+  //   try {
+  //     final User? currentUser = _auth.currentUser;
+  //     if (currentUser == null) {
+  //       throw Exception('No such a user logged in');
+  //     }
+  //     await _googleSignIn.signOut();
+  //     await currentUser.delete();
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'requires-recent-login') {
+  //       throw Exception(
+  //         'Please log in again before deleting your account',
+  //       );
+  //     }
+  //     throw Exception(
+  //       'Failed to delete account: ${e.message}',
+  //     );
+  //   } catch (e) {
+  //     throw Exception('Problem deleting account: $e');
+  //   }
+  // }
+
   @override
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount({String? password}) async {
     try {
       final User? currentUser = _auth.currentUser;
       if (currentUser == null) {
         throw Exception('No such a user logged in');
       }
-      await _googleSignIn.signOut();
-      await currentUser.delete();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {
+
+      try {
+        await currentUser.delete();
+        return;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'requires-recent-login') {
+          final providerId =
+              currentUser.providerData.first.providerId;
+
+          if (providerId == 'password') {
+            if (password == null) {
+              throw Exception('Password required');
+            }
+            await reauthenticateWithPassword(password);
+          } else if (providerId == 'google.com') {
+            await reauthenticateWithGoogle();
+          }
+          await currentUser.delete();
+          return;
+        }
+
         throw Exception(
-          'Please log in again before deleting your account',
+          'Failed to delete account: ${e.message}',
         );
       }
-      throw Exception(
-        'Failed to delete account: ${e.message}',
-      );
     } catch (e) {
       throw Exception('Problem deleting account: $e');
     }

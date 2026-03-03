@@ -72,6 +72,103 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(height: 10),
                 GetButtonWithText(
                   onTap: () async {
+                    final passwordController =
+                        TextEditingController();
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (context, setState) {
+                            return AlertDialog(
+                              title: const Text(
+                                "Delete Account",
+                              ),
+                              content: Column(
+                                mainAxisSize:
+                                    MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    "Enter your password to confirm:",
+                                  ),
+                                  TextField(
+                                    controller:
+                                        passwordController,
+                                    obscureText: true,
+                                    decoration:
+                                        const InputDecoration(
+                                          labelText:
+                                              'Password',
+                                          hintText:
+                                              'Required',
+                                          errorText: null,
+                                        ),
+                                    onChanged: (_) =>
+                                        setState(() {}),
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(
+                                        context,
+                                        false,
+                                      ),
+                                  child: const Text(
+                                    "Cancel",
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed:
+                                      passwordController
+                                              .text
+                                              .trim()
+                                              .length <
+                                          6
+                                      ? null
+                                      : () => Navigator.pop(
+                                          context,
+                                          true,
+                                        ),
+                                  child: Text(
+                                    "Delete",
+                                    style: TextStyle(
+                                      color:
+                                          passwordController
+                                                  .text
+                                                  .trim()
+                                                  .length <
+                                              6
+                                          ? Colors.grey
+                                          : Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    );
+
+                    if (confirm == true) {
+                      final password =
+                          passwordController.text;
+                      await ref
+                          .read(
+                            asyncAuthNotifierProvider
+                                .notifier,
+                          )
+                          .deleteAccount(
+                            password: password,
+                          );
+                    }
+                  },
+                  text: 'Delete Account',
+                ),
+                const SizedBox(height: 10),
+                GetButtonWithText(
+                  onTap: () async {
                     final confirm = await showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -109,51 +206,6 @@ class ProfileScreen extends ConsumerWidget {
                   },
                   text: 'log out',
                 ),
-                // Align(
-                //   alignment: Alignment.bottomCenter,
-                //   child: CustomElevatedButton(
-                //     onPressed: () async {
-                //       final confirm = await showDialog(
-                //         context: context,
-                //         builder: (context) => AlertDialog(
-                //           title: const Text("Logout"),
-                //           content: const Text(
-                //             "Are you sure you want to logout?",
-                //           ),
-                //           actions: [
-                //             TextButton(
-                //               onPressed: () =>
-                //                   Navigator.pop(
-                //                     context,
-                //                     false,
-                //                   ),
-                //               child: const Text("Cancel"),
-                //             ),
-                //             TextButton(
-                //               onPressed: () =>
-                //                   Navigator.pop(
-                //                     context,
-                //                     true,
-                //                   ),
-                //               child: const Text("Logout"),
-                //             ),
-                //           ],
-                //         ),
-                //       );
-
-                //       if (confirm == true) {
-                //         await ref
-                //             .read(
-                //               asyncAuthNotifierProvider
-                //                   .notifier,
-                //             )
-                //             .logOut();
-                //       }
-                //     },
-                //     text: 'log out',
-                //     color: Colors.blue,
-                //   ),
-                // ),
               ],
             ),
           );

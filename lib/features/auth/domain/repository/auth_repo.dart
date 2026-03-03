@@ -14,6 +14,6 @@ abstract class AuthModel {
   Future<void> logOut();
   Future<String> sendPasswordResetEmail(String email);
   Future<AppUser?> logInWithGoogle();
-  Future<void> deleteAccount();
+  Future<void> deleteAccount({String? password});
   Future<AppUser?> getCurrentUser();
 }

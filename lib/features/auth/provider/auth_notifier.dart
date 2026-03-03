@@ -88,16 +88,28 @@ class AuthNotifier extends AsyncNotifier<AppUser?> {
     }
   }
 
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount({String? password}) async {
     state = AsyncValue.loading();
     try {
       final AppUser? currentUser = state.value;
       if (currentUser != null) {
+        final tasksSnapshot = await _firestore
+            .collection('users')
+            .doc(currentUser.uid)
+            .collection('tasks')
+            .get();
+
+        await Future.wait(
+          tasksSnapshot.docs.map(
+            (doc) => doc.reference.delete(),
+          ),
+        );
+
         await _firestore
             .collection('users')
             .doc(currentUser.uid)
             .delete();
-        await _authRepo.deleteAccount();
+        await _authRepo.deleteAccount(password: password);
         state = const AsyncValue.data(null);
       }
     } catch (e, st) {
