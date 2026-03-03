@@ -11,7 +11,7 @@ import 'package:to_do/features/profile/presentation/profile_screen.dart';
 import 'package:to_do/features/splash/presentation/splash_screen.dart';
 import 'package:to_do/features/tasks/presentation/add_task_page.dart';
 import 'package:to_do/features/tasks/presentation/task_screen.dart';
-import 'package:to_do/history/presentation/history_screen.dart';
+import 'package:to_do/features/history/presentation/history_screen.dart';
 
 class RouterConfiguration {
   static final _rootNavigationKey =

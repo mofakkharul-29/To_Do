@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/features/tasks/domain/task_model.dart';
-import 'package:to_do/history/widgets/custom_pie_chart.dart';
+import 'package:to_do/features/history/widgets/custom_pie_chart.dart';
 
 class CustomCard extends StatelessWidget {
   final List<TaskModel> tasks;

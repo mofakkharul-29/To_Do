@@ -6,7 +6,7 @@ import 'package:to_do/features/profile/widgets/get_button_with_text.dart';
 import 'package:to_do/features/profile/widgets/hero_section.dart';
 import 'package:to_do/features/tasks/domain/task_model.dart';
 import 'package:to_do/features/tasks/provider/task_stream_provider.dart';
-import 'package:to_do/history/widgets/custom_devider.dart';
+import 'package:to_do/features/history/widgets/custom_devider.dart';
 import 'package:to_do/shared/error_page.dart';
 
 class ProfileScreen extends ConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/features/tasks/domain/task_model.dart';
-import 'package:to_do/history/widgets/weekly_trend_helper.dart';
+import 'package:to_do/features/history/widgets/weekly_trend_helper.dart';
 
 class WeeklyTrendCard extends StatelessWidget {
   final List<TaskModel> tasks;

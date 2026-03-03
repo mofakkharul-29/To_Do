@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do/features/tasks/domain/task_model.dart';
-import 'package:to_do/history/widgets/recent_complete_helper.dart';
+import 'package:to_do/features/history/widgets/recent_complete_helper.dart';
 
 class RecentCompletedCard extends StatelessWidget {
   final List<TaskModel> tasks;

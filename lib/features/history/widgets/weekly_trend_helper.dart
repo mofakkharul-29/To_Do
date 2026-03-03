@@ -1,5 +1,5 @@
 import 'package:to_do/features/tasks/domain/task_model.dart';
-import 'package:to_do/history/widgets/weekly_trend_result.dart';
+import 'package:to_do/features/history/widgets/weekly_trend_result.dart';
 
 class WeeklyTrendHelper {
   static WeeklyTrendResult calculate(

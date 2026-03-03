@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:to_do/features/tasks/provider/task_stream_provider.dart';
-import 'package:to_do/history/widgets/custom_card.dart';
-import 'package:to_do/history/widgets/custom_devider.dart';
-import 'package:to_do/history/widgets/recent_completed_card.dart';
-import 'package:to_do/history/widgets/weekly_trend_card.dart';
+import 'package:to_do/features/history/widgets/custom_card.dart';
+import 'package:to_do/features/history/widgets/custom_devider.dart';
+import 'package:to_do/features/history/widgets/recent_completed_card.dart';
+import 'package:to_do/features/history/widgets/weekly_trend_card.dart';
 import 'package:to_do/shared/error_page.dart';
 
 class HistoryScreen extends ConsumerWidget {
