@@ -1,6 +1,6 @@
 **📝 Full-Featured To-Do App with Firebase**
 
-&nbsp;&nbsp;A fully functional cross-platform To-Do app built with Flutter and Firebase, featuring real-time updates, Google &nbsp;&nbsp;&        Email authentication, and &nbsp;&nbsp;modern app architecture.<br> &nbsp;&nbsp;Check here on youtube : https://youtu.be/0_8LO0T6PeE
+&nbsp;&nbsp;A fully functional cross-platform To-Do app built with Flutter and Firebase, featuring real-time updates, Google &nbsp;&nbsp;&        &nbsp;Email authentication, and &nbsp;&nbsp;modern app architecture.<br> &nbsp;&nbsp;Check here on youtube : https://youtu.be/0_8LO0T6PeE
 
 ---
  **🚀 Features**
