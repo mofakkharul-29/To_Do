@@ -64,7 +64,7 @@ Google services configuration for Google Sign-In
 
 1. Installation
 
-Clone the repository : git clone (your-repo-url)
+Clone the repository : git clone (repo-url)
 
 cd (project-folder)
 
